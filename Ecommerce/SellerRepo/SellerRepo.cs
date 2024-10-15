@@ -47,5 +47,17 @@ namespace Ecommerce.SellerRepo
             return sellers;
             
         }
+
+        public async Task Update(SellerDto sellerDto,int id)
+        {
+            var seller = await ecdb.Users.Where(s => s.Role == UserRole.Seller).FirstOrDefaultAsync(s => s.UserId == id);
+            if (seller != null)
+            {
+                seller.UserName = sellerDto.UserName;
+                seller.Password= sellerDto.Password;
+                seller.Email=sellerDto.Email;
+            }
+            await ecdb.SaveChangesAsync();
+        }
     }
 }

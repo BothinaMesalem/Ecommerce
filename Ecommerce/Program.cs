@@ -1,4 +1,5 @@
 
+using Ecommerce.CustomerRepo;
 using Ecommerce.Models;
 using Ecommerce.Models.OrderRepo;
 using Ecommerce.ProductRepo;
@@ -23,6 +24,7 @@ namespace Ecommerce
             builder.Services.AddScoped<IProductRepo, Ecommerce.ProductRepo.ProductRepo>();
             builder.Services.AddScoped<IOrderRepo, OrderRepo>();
             builder.Services.AddScoped<ISellerRepo,Ecommerce.SellerRepo.SellerRepo>();
+            builder.Services.AddScoped<ICustomerRepo, Ecommerce.CustomerRepo.CustomerRepo>();
 
             var app = builder.Build();
           

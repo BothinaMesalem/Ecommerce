@@ -16,39 +16,39 @@ namespace Ecommerce.Controllers
         {
             this.ProductRepo = productRepo;
         }
-        [HttpGet]
+        [HttpGet("GetAllProduct")]
         public async Task<IActionResult> getallProducts()
         {
             var products = await ProductRepo.GetALL();
             return Ok(products);
         }
-        [HttpGet("{id}")]
+        [HttpGet("GetProductbyId/{id}")]
         public async Task<IActionResult> getproductbyId(int id)
         {
             var product = await ProductRepo.GetById(id);
             return Ok(product);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await ProductRepo.Delete(id);
             return NoContent();
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         public async Task<IActionResult> AddProduct([FromForm] ProductDto productDto)
         {
             await ProductRepo.Add(productDto);
             return Ok();
         }
-        [HttpPut]
+        [HttpPut("EditProduct/{id}")]
         public async Task<IActionResult> EditProduct([FromForm] ProductDto productDto,int id)
         {
             await ProductRepo.Update(productDto,id);
             return Ok(); 
         }
-        [HttpGet("id")]
+        [HttpGet("GetAllProductBySellerId/{id}")]
         public async Task<IActionResult> GetALLbysellerId(int id)
         {
            var allproduct=  await ProductRepo.GetALLbysellerId(id);

@@ -273,3 +273,4 @@ D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.pdb
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.genruntimeconfig.cache
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\ref\Ecommerce.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.staticwebassets.runtime.json
+D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.sourcelink.json

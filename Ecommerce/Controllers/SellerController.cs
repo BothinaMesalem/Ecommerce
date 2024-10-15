@@ -13,23 +13,33 @@ namespace Ecommerce.Controllers
         {
             sellerRepo = _sellerRepo;
         }
-        [HttpPost]
+        [HttpPost("AddSeller")]
         public async Task<IActionResult> Add(SellerDto sellerDto)
         {
             await sellerRepo.Add(sellerDto);
             return Ok();
         }
-        [HttpDelete]
+        [HttpDelete("DeleteSeller/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await sellerRepo.Delete(id);
             return Ok();
         }
-        [HttpGet]
+        [HttpGet("GetAllSeller")]
+
         public async Task<IActionResult> GetALL()
         {
            var sellers= await sellerRepo.GetAll();
             return Ok(sellers) ;
         }
+
+        [HttpPut("EditSellerProfile/{id}")]
+        public async Task<IActionResult> Edit(SellerDto sellerDto,int id)
+        {
+            await sellerRepo.Update(sellerDto, id);
+            return Ok();
+
+        }
+
     }
 }

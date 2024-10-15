@@ -16,7 +16,7 @@ namespace Ecommerce.Controllers
             orderRepo = _orderRepo;
         }
 
-        [HttpPost]
+        [HttpPost("CreateOrder")]
         public async Task<IActionResult> Create([FromBody] OrderDto orderDto)
         {
            
@@ -25,27 +25,28 @@ namespace Ecommerce.Controllers
            
           
         }
-        [HttpGet("id")]
-
+        [HttpGet("GetOrderByUserId/{id}")]
         public async Task<IActionResult> GetbyuserId(int id)
         {
           var order=  await orderRepo.GetbyuserId(id);
             return Ok(order);
         }
-        [HttpGet]
+        [HttpGet("GeTAllOrder")]
         public async Task<IActionResult> GetAll()
         {
             var orders= await orderRepo.GetAll();
            
             return Ok(orders);
         }
-        [HttpPut("id")]
+
+        [HttpPut("EditDeleteOrder/{id}")]
         public async Task<IActionResult> Update([FromBody] OrderDto orderDto, int id)
         {
             await orderRepo.Update(orderDto,id);
             return Ok();
         }
-        [HttpDelete]
+
+        [HttpDelete("DeleteOrder/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await orderRepo.Delete(id);
