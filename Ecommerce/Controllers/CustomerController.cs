@@ -1,9 +1,10 @@
 ﻿using Ecommerce.CustomerRepo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Controllers
 {
-    [Route("Api/[Controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class CustomerController:ControllerBase
     {
@@ -12,7 +13,9 @@ namespace Ecommerce.Controllers
             customerRepo = _customerRepo;
         }
 
+      
         [HttpPost("UserSignUP/{id}")]
+
         public async Task<IActionResult> CreateUser(CustomerDto customerDto)
         {
             await customerRepo.Add(customerDto);

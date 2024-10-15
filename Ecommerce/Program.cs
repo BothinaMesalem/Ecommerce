@@ -1,9 +1,11 @@
 
+using Ecommerce.AccountRepo;
 using Ecommerce.CustomerRepo;
 using Ecommerce.Models;
 using Ecommerce.Models.OrderRepo;
 using Ecommerce.ProductRepo;
 using Ecommerce.SellerRepo;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce
@@ -25,6 +27,9 @@ namespace Ecommerce
             builder.Services.AddScoped<IOrderRepo, OrderRepo>();
             builder.Services.AddScoped<ISellerRepo,Ecommerce.SellerRepo.SellerRepo>();
             builder.Services.AddScoped<ICustomerRepo, Ecommerce.CustomerRepo.CustomerRepo>();
+            builder.Services.AddScoped<IAccountRepo, Ecommerce.AccountRepo.AccountRepo>();
+
+            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             var app = builder.Build();
           
@@ -41,6 +46,7 @@ namespace Ecommerce
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            //app.UseRouting();
             app.UseStaticFiles();
 
 
