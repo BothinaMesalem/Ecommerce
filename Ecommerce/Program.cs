@@ -7,6 +7,8 @@ using Ecommerce.ProductRepo;
 using Ecommerce.SellerRepo;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Ecommerce
 {
@@ -29,7 +31,21 @@ namespace Ecommerce
             builder.Services.AddScoped<ICustomerRepo, Ecommerce.CustomerRepo.CustomerRepo>();
             builder.Services.AddScoped<IAccountRepo, Ecommerce.AccountRepo.AccountRepo>();
 
-            //builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            builder.Services.AddAuthentication(op => op.DefaultScheme = "myschema")
+                .AddJwtBearer("myschema", option =>
+                {
+                string s = "Welcome to my project Bothina Ahmed";
+                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(s));
+                    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    {
+                        IssuerSigningKey = key,
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+
+                    };
+                });
+
+                
 
             var app = builder.Build();
           

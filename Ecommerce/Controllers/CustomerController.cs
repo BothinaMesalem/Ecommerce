@@ -28,6 +28,7 @@ namespace Ecommerce.Controllers
             return Ok();
         }
         [HttpGet("GetAllCustomer")]
+        //[Authorize]
         public async Task<IActionResult> GetAll()
         {
            var cutomers= await customerRepo.GetAll();

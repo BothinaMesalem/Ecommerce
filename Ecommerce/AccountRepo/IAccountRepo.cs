@@ -4,6 +4,6 @@ namespace Ecommerce.AccountRepo
 {
     public interface IAccountRepo
     {
-        public Task<User> Login(AccountDto accountDto);
+        public Task<string> Login(AccountDto accountDto);
     }
 }
