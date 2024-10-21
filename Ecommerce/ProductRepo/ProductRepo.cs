@@ -15,9 +15,32 @@ namespace Ecommerce.ProductRepo
             this.ecdb = _ecdb;
             this._webHostEnvironment = webHostEnvironment;
         }
-        public async Task<IEnumerable<Product>> GetALL()
+        public async Task<IEnumerable<AllProductDto>> GetALL()
         {
-           return await ecdb.Products.ToListAsync();
+            var products = await ecdb.Products.Include(p => p.ProductProductSizes).ThenInclude(p=>p.ProductSize)
+            .ToListAsync();
+
+
+            var produtdto = products.Select( product => new AllProductDto
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                Price = product.Price,
+                Stack_qty = product.Stack_qty,
+                Image=product.Image,
+                Size = product.ProductProductSizes !=null ?
+                product.ProductProductSizes.Where(p=>p.ProductSize !=null).
+                Select(ps => ps.ProductSize.Size)
+                .ToList()
+                :new List<string>()
+
+
+            }).ToList();
+
+            return produtdto;
+           
+
         }
         public async Task<Product> GetById(int id)
         {
@@ -68,6 +91,7 @@ namespace Ecommerce.ProductRepo
             ecdb.ProductProductSize.Add(productProductSize);
             await ecdb.SaveChangesAsync();
         }
+
 
         private async Task<byte[]> ConvertImageToByteArray(IFormFile image)
         {
@@ -144,7 +168,7 @@ namespace Ecommerce.ProductRepo
                 Price= product.Price,
                 Stack_qty=product.Stack_qty,
                 //Image = product.Image,
-                Sizes = product.ProductProductSizes.Select(ps => ps.ProductSize.Size).ToList(),
+                Size = product.ProductProductSizes.Select(ps => ps.ProductSize.Size).ToList(),
 
 
             }).ToList();

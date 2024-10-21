@@ -44,8 +44,18 @@ namespace Ecommerce
 
                     };
                 });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200")
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    });
+            });
 
-                
+
 
             var app = builder.Build();
           
@@ -65,6 +75,7 @@ namespace Ecommerce
             //app.UseRouting();
             app.UseStaticFiles();
 
+            app.UseCors("AllowSpecificOrigins");
 
             app.MapControllers();
 

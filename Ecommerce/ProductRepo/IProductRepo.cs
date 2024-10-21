@@ -4,7 +4,7 @@ namespace Ecommerce.ProductRepo
 {
     public interface IProductRepo
     {
-        public Task<IEnumerable<Product>> GetALL();
+        public Task<IEnumerable<AllProductDto>> GetALL();
 
         public Task<Product> GetById(int id); 
 

@@ -39,8 +39,15 @@ namespace Ecommerce.Controllers
         [HttpPost("CreateProduct")]
         public async Task<IActionResult> AddProduct([FromForm] ProductDto productDto)
         {
-            await ProductRepo.Add(productDto);
-            return Ok();
+            try
+            {
+                await ProductRepo.Add(productDto);
+                return Ok("product added successfully");
+            }
+            catch
+            {
+                return BadRequest("Interl server error");
+            }
         }
         [HttpPut("EditProduct/{id}")]
         public async Task<IActionResult> EditProduct([FromForm] ProductDto productDto,int id)

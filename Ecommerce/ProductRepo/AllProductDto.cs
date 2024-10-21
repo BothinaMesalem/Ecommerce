@@ -25,9 +25,9 @@ namespace Ecommerce.ProductRepo
 
         public byte[] Image { get; set; }
 
-        //public ProductSize size { get; set; }
 
-        public List<string> Sizes { get; set; }
+
+        public List<string> Size { get; set; }
 
 
        

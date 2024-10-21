@@ -31,8 +31,8 @@ namespace Ecommerce.ProductRepo
         public string Size { get; set; }
 
 
-        [ForeignKey("User")]
+      
         public int UserId { get; set; }
-        public User User { get; set; }
+        
     }
 }
