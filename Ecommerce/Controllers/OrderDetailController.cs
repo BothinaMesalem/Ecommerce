@@ -16,10 +16,7 @@ namespace Ecommerce.Controllers
         
         [HttpPost("AddOrder")]
         public async Task<IActionResult> Create(OrderDetailDto orderDetailDto){
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
+            
             await orderDetailRepo.Add(orderDetailDto);
             return Ok(orderDetailDto);
         }
@@ -34,6 +31,18 @@ namespace Ecommerce.Controllers
         {
            var orderdetail= await orderDetailRepo.GetbyOrderId(id);
             return Ok(orderdetail);
+        }
+        [HttpDelete("RemoveOrder")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await orderDetailRepo.Delete(id);
+            return Ok();
+        }
+        [HttpPut("EditOrder/{id}")]
+        public async Task<IActionResult> Update([FromForm]OrderDetailUpDto orderDetailUpDto ,int id)
+        {
+            await orderDetailRepo.Update(orderDetailUpDto,id);
+            return Ok();
         }
         
       

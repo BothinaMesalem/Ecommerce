@@ -9,5 +9,9 @@ namespace Ecommerce.OrderDetailsRepo
         public Task<List<AllOrderDetailDto>> GetbyOrderId(int id);
 
         public Task<List<AllOrderDetailDto>> GetAll();
+
+        public Task Delete(int id);
+
+        public Task Update(OrderDetailUpDto orderDetailDto,int id);
     }
 }

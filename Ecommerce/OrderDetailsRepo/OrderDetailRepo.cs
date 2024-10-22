@@ -53,5 +53,28 @@ namespace Ecommerce.OrderDetailsRepo
             return ord;
         }
 
+        public async Task Delete(int id)
+        {
+            var orderdetail = await ecdb.OrderDetails.FindAsync(id);
+            if(orderdetail != null)
+            {
+                ecdb.OrderDetails.Remove(orderdetail);
+                await ecdb.SaveChangesAsync();
+            }
+        }
+
+        public async Task Update(OrderDetailUpDto orderdetail,int id)
+        {
+            var orderdetails = await ecdb.OrderDetails.FindAsync(id);
+            if(orderdetails != null )
+            {
+                orderdetails.Quantity = orderdetail.Quantity;
+                orderdetails.OrderPrice=orderdetail.OrderPrice;
+                orderdetails.ProductId = orderdetail.ProductId;
+
+                ecdb.OrderDetails.Update(orderdetails);
+                await ecdb.SaveChangesAsync();
+            }
+        }
     }
 }
