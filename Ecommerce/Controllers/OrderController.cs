@@ -44,7 +44,7 @@ namespace Ecommerce.Controllers
             return Ok(orders);
         }
 
-        [HttpPut("EditDeleteOrder/{id}")]
+        [HttpPut("EditOrder/{id}")]
         public async Task<IActionResult> Update([FromBody] OrderDto orderDto, int id)
         {
             await orderRepo.Update(orderDto,id);
