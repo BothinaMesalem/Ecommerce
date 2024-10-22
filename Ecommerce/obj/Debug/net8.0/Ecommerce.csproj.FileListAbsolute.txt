@@ -137,6 +137,7 @@ C:\Users\WIN 10\Desktop\Ecommerce\Ecommerce\bin\Debug\net8.0\runtimes\win\lib\ne
 C:\Users\WIN 10\Desktop\Ecommerce\Ecommerce\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\appsettings.Development.json
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\appsettings.json
+D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.staticwebassets.runtime.json
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.exe
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.deps.json
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.runtimeconfig.json
@@ -145,7 +146,9 @@ D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.pdb
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Azure.Core.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Azure.Identity.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Humanizer.dll
+D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
 D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
@@ -258,6 +261,7 @@ D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.AssemblyInfo.cs
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.csproj.CoreCompileInputs.cache
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.MvcApplicationPartsAssemblyInfo.cs
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.MvcApplicationPartsAssemblyInfo.cache
+D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.sourcelink.json
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\staticwebassets.build.json
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\staticwebassets.development.json
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\staticwebassets\msbuild.Ecommerce.Microsoft.AspNetCore.StaticWebAssets.props
@@ -272,7 +276,3 @@ D:\Ecommerce\Ecommerce\obj\Debug\net8.0\refint\Ecommerce.dll
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.pdb
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.genruntimeconfig.cache
 D:\Ecommerce\Ecommerce\obj\Debug\net8.0\ref\Ecommerce.dll
-D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Ecommerce.staticwebassets.runtime.json
-D:\Ecommerce\Ecommerce\obj\Debug\net8.0\Ecommerce.sourcelink.json
-D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\Ecommerce\Ecommerce\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll

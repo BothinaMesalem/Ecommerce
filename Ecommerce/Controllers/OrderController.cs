@@ -1,5 +1,7 @@
 ﻿using Ecommerce.Models.OrderRepo;
+
 using Microsoft.AspNetCore.Mvc;
+
 
 using System.Threading.Tasks;
 namespace Ecommerce.Controllers
@@ -14,6 +16,7 @@ namespace Ecommerce.Controllers
         public OrderController(IOrderRepo _orderRepo)
         {
             orderRepo = _orderRepo;
+          
         }
 
         [HttpPost("CreateOrder")]
@@ -25,6 +28,8 @@ namespace Ecommerce.Controllers
            
           
         }
+
+       
         [HttpGet("GetOrderByUserId/{id}")]
         public async Task<IActionResult> GetbyuserId(int id)
         {

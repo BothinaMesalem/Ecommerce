@@ -43,7 +43,7 @@ namespace Ecommerce.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Ecommerce.Models.OrderDetail", b =>
@@ -72,7 +72,7 @@ namespace Ecommerce.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails");
+                    b.ToTable("OrderDetails", (string)null);
                 });
 
             modelBuilder.Entity("Ecommerce.Models.Product", b =>
@@ -110,7 +110,7 @@ namespace Ecommerce.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Ecommerce.Models.ProductProductSize", b =>
@@ -125,7 +125,7 @@ namespace Ecommerce.Migrations
 
                     b.HasIndex("ProductSizeId");
 
-                    b.ToTable("ProductProductSize");
+                    b.ToTable("ProductProductSize", (string)null);
                 });
 
             modelBuilder.Entity("Ecommerce.Models.ProductSize", b =>
@@ -142,7 +142,7 @@ namespace Ecommerce.Migrations
 
                     b.HasKey("PSizeId");
 
-                    b.ToTable("ProductSize");
+                    b.ToTable("ProductSize", (string)null);
                 });
 
             modelBuilder.Entity("Ecommerce.Models.User", b =>
@@ -172,7 +172,7 @@ namespace Ecommerce.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Ecommerce.Models.Order", b =>
