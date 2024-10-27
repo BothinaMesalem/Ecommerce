@@ -42,9 +42,20 @@ namespace Ecommerce.ProductRepo
            
 
         }
-        public async Task<Product> GetById(int id)
+        public async Task<AllProductDto> GetById(int id)
         {
-            return await ecdb.Products.FindAsync(id); 
+            var foundProduct = await ecdb.Products.Include(p => p.ProductProductSizes)
+            .ThenInclude(ps => ps.ProductSize).FirstOrDefaultAsync(p=>p.ProductId==id);
+            var product = new AllProductDto
+            {
+                ProductId = foundProduct.ProductId,
+                ProductName = foundProduct.ProductName,
+                Price = foundProduct.Price,
+                ProductDescription = foundProduct.ProductDescription,
+                Image = foundProduct.Image,
+                Size = foundProduct.ProductProductSizes.Select(ps => ps.ProductSize.Size).ToList()
+            };
+           return product;
         }
 
         public async Task<Product> Delete(int id)
@@ -167,7 +178,7 @@ namespace Ecommerce.ProductRepo
                 ProductDescription= product.ProductDescription,
                 Price= product.Price,
                 Stack_qty=product.Stack_qty,
-                //Image = product.Image,
+                Image = product.Image,
                 Size = product.ProductProductSizes.Select(ps => ps.ProductSize.Size).ToList(),
 
 

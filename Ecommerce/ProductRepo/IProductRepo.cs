@@ -6,7 +6,7 @@ namespace Ecommerce.ProductRepo
     {
         public Task<IEnumerable<AllProductDto>> GetALL();
 
-        public Task<Product> GetById(int id); 
+        public Task<AllProductDto> GetById(int id); 
 
         public Task<Product> Delete(int id);
 
