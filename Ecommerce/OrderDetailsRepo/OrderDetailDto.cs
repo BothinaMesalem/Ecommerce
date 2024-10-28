@@ -12,6 +12,7 @@ namespace Ecommerce.OrderDetailsRepo
 
 
         public int ProductId { get; set; }
+        public string Size { get; set; }
 
         public int OrderId { get; set; }
     }

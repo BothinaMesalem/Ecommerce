@@ -15,6 +15,8 @@ namespace Ecommerce.Models
         [Range(1, double.MaxValue, ErrorMessage = "Quantity  must be greater than Zero")]
         public int Quantity { get; set; }
 
+        public string Size { get; set; }    
+
 
         public int ProductId { get; set; }
         public Product Product { get; set; }

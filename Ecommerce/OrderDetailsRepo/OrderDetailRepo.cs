@@ -17,6 +17,7 @@ namespace Ecommerce.OrderDetailsRepo
                 OrderPrice = orderDetailDto.OrderPrice,
                 Quantity = orderDetailDto.Quantity,
                 ProductId = orderDetailDto.ProductId,
+                Size= orderDetailDto.Size,
                 OrderId = orderDetailDto.OrderId,
             };
              ecdb.OrderDetails.Add(orderdetails);
@@ -33,6 +34,7 @@ namespace Ecommerce.OrderDetailsRepo
                 ProductId=order.ProductId,
                 OrderPrice=order.OrderPrice,
                 Quantity=order.Quantity,
+                Size=order.Size,
 
             }).ToList();
 
@@ -48,7 +50,7 @@ namespace Ecommerce.OrderDetailsRepo
                 ProductId = order.ProductId,
                 OrderPrice = order.OrderPrice,
                 Quantity = order.Quantity,
-
+                Size = order.Size,
             }).ToList();
             return ord;
         }
@@ -71,6 +73,7 @@ namespace Ecommerce.OrderDetailsRepo
                 orderdetails.Quantity = orderdetail.Quantity;
                 orderdetails.OrderPrice=orderdetail.OrderPrice;
                 orderdetails.ProductId = orderdetail.ProductId;
+                orderdetails.Size   = orderdetail.Size;
 
                 ecdb.OrderDetails.Update(orderdetails);
                 await ecdb.SaveChangesAsync();
