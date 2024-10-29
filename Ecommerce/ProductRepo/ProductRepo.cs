@@ -59,7 +59,7 @@ namespace Ecommerce.ProductRepo
            return product;
         }
 
-        public async Task<Product> Delete(int id)
+        public async Task Delete(int id)
         {
             var product= await ecdb.Products.FindAsync(id);
             if (product != null)
@@ -68,7 +68,7 @@ namespace Ecommerce.ProductRepo
                  await ecdb.SaveChangesAsync();
                 
             }
-            return product;
+            
         }
         public async Task Add(ProductDto productDto)
         {
@@ -187,6 +187,18 @@ namespace Ecommerce.ProductRepo
 
             return produtdto;
         }
+
+        public async Task Editqty(ProductStackqtyDto productStackqtyDto, int id)
+        {
+            var product = await ecdb.Products.FirstOrDefaultAsync(a => a.ProductId == id);
+            if(product != null)
+            {
+                product.Stack_qty = productStackqtyDto.Stack_qty;
+            }
+            ecdb.Products.Update(product);
+            await  ecdb.SaveChangesAsync();
+        }
+
 
 
     }

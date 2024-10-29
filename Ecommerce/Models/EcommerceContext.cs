@@ -44,7 +44,7 @@ namespace Ecommerce.Models
                 .HasMany(p => p.OrderDetails)
                 .WithOne(od => od.Product)
                 .HasForeignKey(od => od.ProductId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ProductProductSize>()
         .HasKey(ps => new { ps.ProductId, ps.ProductSizeId });

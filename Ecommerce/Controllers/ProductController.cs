@@ -32,8 +32,8 @@ namespace Ecommerce.Controllers
         [HttpDelete("DeleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await ProductRepo.Delete(id);
-            return NoContent();
+            await ProductRepo.Delete(id);
+            return Ok();
         }
 
         [HttpPost("CreateProduct")]
@@ -63,6 +63,12 @@ namespace Ecommerce.Controllers
             
         }
 
+        [HttpPut("EditQuantity/{id}")]
+        public async Task<IActionResult> EditQuantity(ProductStackqtyDto productStackqtyDto,int id)
+        {
+            await ProductRepo.Editqty(productStackqtyDto,id);
+            return Ok();
+        }
 
 
 
