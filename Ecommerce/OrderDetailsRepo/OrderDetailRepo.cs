@@ -75,6 +75,7 @@ namespace Ecommerce.OrderDetailsRepo
                 orderdetails.ProductId = orderdetail.ProductId;
                 orderdetails.Size   = orderdetail.Size;
 
+
                 ecdb.OrderDetails.Update(orderdetails);
                 await ecdb.SaveChangesAsync();
             }

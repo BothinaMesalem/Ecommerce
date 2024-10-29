@@ -52,6 +52,7 @@ namespace Ecommerce.ProductRepo
                 ProductName = foundProduct.ProductName,
                 Price = foundProduct.Price,
                 ProductDescription = foundProduct.ProductDescription,
+                Stack_qty = foundProduct.Stack_qty,
                 Image = foundProduct.Image,
                 Size = foundProduct.ProductProductSizes.Select(ps => ps.ProductSize.Size).ToList()
             };

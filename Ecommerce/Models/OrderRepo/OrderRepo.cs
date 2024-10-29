@@ -31,6 +31,7 @@ namespace Ecommerce.Models.OrderRepo
                     OrderPrice = Orderdetail.OrderPrice,
                     Quantity = Orderdetail.Quantity,
                     ProductId = Orderdetail.ProductId,
+                    Size=Orderdetail.Size,
                     OrderId = order.OrderId
                 };
 
@@ -54,6 +55,7 @@ namespace Ecommerce.Models.OrderRepo
                     OrderDetailId = ord.OrderDetailId,
                     OrderPrice = ord.OrderPrice,
                     Quantity = ord.Quantity,
+                    Size=ord.Size,
                     ProductId = ord.ProductId,
 
                 }).ToList()
@@ -75,6 +77,7 @@ namespace Ecommerce.Models.OrderRepo
                     OrderPrice = or.OrderPrice,
                     ProductId = or.ProductId,
                     Quantity = or.Quantity,
+                    Size = or.Size,
                 }).ToList()
             }).ToList();
 
@@ -95,6 +98,7 @@ namespace Ecommerce.Models.OrderRepo
                         OrderPrice = order.OrderPrice,
                         Quantity = order.Quantity,
                         ProductId = order.ProductId,
+                        Size= order.Size,
                        
                     };
                 }

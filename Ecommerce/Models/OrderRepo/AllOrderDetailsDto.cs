@@ -7,6 +7,8 @@
 
         public int Quantity { get; set; }
 
+        public string Size { get; set; }
+
 
         public int ProductId { get; set; }
     }
