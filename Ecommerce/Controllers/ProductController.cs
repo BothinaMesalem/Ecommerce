@@ -50,7 +50,7 @@ namespace Ecommerce.Controllers
             }
         }
         [HttpPut("EditProduct/{id}")]
-        public async Task<IActionResult> EditProduct([FromForm] ProductDto productDto,int id)
+        public async Task<IActionResult> EditProduct([FromForm] UpdateProductDto productDto,int id)
         {
             await ProductRepo.Update(productDto,id);
             return Ok(); 

@@ -72,38 +72,50 @@ namespace Ecommerce.ProductRepo
         }
         public async Task Add(ProductDto productDto)
         {
-            string imagebath = await SavetoFloder(productDto.Image);
-            
+            string imagePath = await SavetoFloder(productDto.Image);
+
+            // Create a new Product instance
             var product = new Product
             {
                 ProductName = productDto.ProductName,
                 ProductDescription = productDto.ProductDescription,
                 Price = productDto.Price,
                 Stack_qty = productDto.Stack_qty,
-               
                 UserId = productDto.UserId,
                 Image = await ConvertImageToByteArray(productDto.Image)
             };
-            var productsize = new ProductSize
-            {
-                Size = productDto.Size,
-            };
 
-            
+            // Add the product to the database
             ecdb.Products.Add(product);
             await ecdb.SaveChangesAsync();
-            ecdb.ProductSize.Add(productsize);
-            await ecdb.SaveChangesAsync();
-            var productProductSize = new ProductProductSize
-            {
-                ProductId = product.ProductId,
-                ProductSizeId = productsize.PSizeId
-            };
 
-            ecdb.ProductProductSize.Add(productProductSize);
+            // Process each size in the Sizes list
+            foreach (var sizeName in productDto.Size)
+            {
+                // Check if the size already exists in ProductSize
+                var productSize = await ecdb.ProductSize.FirstOrDefaultAsync(s => s.Size == sizeName);
+
+                // If the size does not exist, create a new ProductSize entry
+                if (productSize == null)
+                {
+                    productSize = new ProductSize { Size = sizeName };
+                    ecdb.ProductSize.Add(productSize);
+                    await ecdb.SaveChangesAsync(); // Save to generate the PSizeId
+                }
+
+                // Create a ProductProductSize entry to associate the product with this size
+                var productProductSize = new ProductProductSize
+                {
+                    ProductId = product.ProductId,
+                    ProductSizeId = productSize.PSizeId
+                };
+
+                ecdb.ProductProductSize.Add(productProductSize);
+            }
+
+            // Save all changes to establish relationships
             await ecdb.SaveChangesAsync();
         }
-
 
         private async Task<byte[]> ConvertImageToByteArray(IFormFile image)
         {
@@ -118,19 +130,32 @@ namespace Ecommerce.ProductRepo
             return null; 
         }
 
-        public async Task Update(ProductDto productDto,int id)
+        public async Task Update(UpdateProductDto uproductDto,int id)
         {
-            var productFound=await ecdb.Products.FindAsync(id);
+            var productFound=await ecdb.Products.Include(p => p.ProductProductSizes)
+            .ThenInclude(ps => ps.ProductSize).FirstOrDefaultAsync(a=>a.ProductId==id);
             if (productFound != null)
             {
 
-                productFound.ProductName = productDto.ProductName;
-                productFound.ProductDescription = productDto.ProductDescription;
-                productFound.Price = productDto.Price;
-                productFound.Stack_qty = productDto.Stack_qty;
-                  //productFound.Size = productDto.size;
-                 productFound.UserId = productDto.UserId;
-                productFound.Image = await ConvertImageToByteArray(productDto.Image);
+                productFound.ProductName = uproductDto.ProductName;
+                productFound.ProductDescription = uproductDto.ProductDescription;
+                productFound.Price = uproductDto.Price;
+                productFound.Stack_qty = uproductDto.Stack_qty;
+                productFound.ProductProductSizes.Clear();
+                foreach (var sizeName in uproductDto.SizeNames)
+                {
+                    var productSize = await ecdb.ProductSize.FirstOrDefaultAsync(s => s.Size == sizeName);
+
+                    if (productSize != null)
+                    {
+                        productFound.ProductProductSizes.Add(new ProductProductSize
+                        {
+                            ProductId = productFound.ProductId,
+                            ProductSizeId = productSize.PSizeId
+                        });
+                    }
+                }
+                productFound.Image = await ConvertImageToByteArray(uproductDto.Image);
                 
 
 

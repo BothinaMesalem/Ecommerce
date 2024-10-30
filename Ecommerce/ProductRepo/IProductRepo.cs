@@ -12,7 +12,7 @@ namespace Ecommerce.ProductRepo
 
         public Task Add(ProductDto productDto);
 
-        public Task Update(ProductDto productDto,int id);
+        public Task Update(UpdateProductDto uproductDto,int id);
 
         public  Task<List<AllProductDto>> GetALLbysellerId(int id);
 

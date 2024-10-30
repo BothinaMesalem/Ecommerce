@@ -1,13 +1,11 @@
-﻿using Ecommerce.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Ecommerce.ProductRepo
 {
-    public class ProductDto
+    public class UpdateProductDto
     {
-       
 
+        
         [Required(ErrorMessage = "Product Name is required")]
         [StringLength(100, ErrorMessage = "Product Name can't be longer than 100 characters")]
         public string ProductName { get; set; }
@@ -26,14 +24,8 @@ namespace Ecommerce.ProductRepo
 
         public IFormFile Image { get; set; }
 
-        //public ProductSize size { get; set; }
-
-        public List<string> Size { get; set; }
-        //public List<string> SizeNames { get; set; }
 
 
-
-        public int UserId { get; set; }
-        
+        public List<string> SizeNames { get; set; }
     }
 }
