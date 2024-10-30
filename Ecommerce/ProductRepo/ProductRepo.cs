@@ -74,7 +74,7 @@ namespace Ecommerce.ProductRepo
         {
             string imagePath = await SavetoFloder(productDto.Image);
 
-            // Create a new Product instance
+          
             var product = new Product
             {
                 ProductName = productDto.ProductName,
@@ -85,25 +85,25 @@ namespace Ecommerce.ProductRepo
                 Image = await ConvertImageToByteArray(productDto.Image)
             };
 
-            // Add the product to the database
+           
             ecdb.Products.Add(product);
             await ecdb.SaveChangesAsync();
 
-            // Process each size in the Sizes list
+            
             foreach (var sizeName in productDto.Size)
             {
-                // Check if the size already exists in ProductSize
+               
                 var productSize = await ecdb.ProductSize.FirstOrDefaultAsync(s => s.Size == sizeName);
 
-                // If the size does not exist, create a new ProductSize entry
+               
                 if (productSize == null)
                 {
                     productSize = new ProductSize { Size = sizeName };
                     ecdb.ProductSize.Add(productSize);
-                    await ecdb.SaveChangesAsync(); // Save to generate the PSizeId
+                    await ecdb.SaveChangesAsync();
                 }
 
-                // Create a ProductProductSize entry to associate the product with this size
+               
                 var productProductSize = new ProductProductSize
                 {
                     ProductId = product.ProductId,
@@ -113,7 +113,7 @@ namespace Ecommerce.ProductRepo
                 ecdb.ProductProductSize.Add(productProductSize);
             }
 
-            // Save all changes to establish relationships
+          
             await ecdb.SaveChangesAsync();
         }
 
