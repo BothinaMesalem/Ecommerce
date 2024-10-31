@@ -137,12 +137,12 @@ namespace Ecommerce.ProductRepo
             if (productFound != null)
             {
 
-                productFound.ProductName = uproductDto.ProductName;
-                productFound.ProductDescription = uproductDto.ProductDescription;
-                productFound.Price = uproductDto.Price;
-                productFound.Stack_qty = uproductDto.Stack_qty;
+                productFound.ProductName = uproductDto.productName;
+                productFound.ProductDescription = uproductDto.productDescription;
+                productFound.Price = uproductDto.price;
+                productFound.Stack_qty = uproductDto.stack_qty;
                 productFound.ProductProductSizes.Clear();
-                foreach (var sizeName in uproductDto.SizeNames)
+                foreach (var sizeName in uproductDto.size)
                 {
                     var productSize = await ecdb.ProductSize.FirstOrDefaultAsync(s => s.Size == sizeName);
 
@@ -155,7 +155,7 @@ namespace Ecommerce.ProductRepo
                         });
                     }
                 }
-                productFound.Image = await ConvertImageToByteArray(uproductDto.Image);
+                productFound.Image = await ConvertImageToByteArray(uproductDto.image);
                 
 
 

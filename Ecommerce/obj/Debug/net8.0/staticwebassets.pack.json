@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\Images\\Products\\5d7cd31e-4b0d-4e02-a757-d790c5c7c672_8.jpg"
     },
     {
+      "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\60f76314-c221-4070-a09c-1300f8e796b0_6.jpg",
+      "PackagePath": "staticwebassets\\Images\\Products\\60f76314-c221-4070-a09c-1300f8e796b0_6.jpg"
+    },
+    {
       "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\663c45ef-aad0-47ad-94b7-9a1ccca38089_2.jpg",
       "PackagePath": "staticwebassets\\Images\\Products\\663c45ef-aad0-47ad-94b7-9a1ccca38089_2.jpg"
     },
@@ -31,6 +35,10 @@
     {
       "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\700a0926-eb61-4a54-afbc-f2340cdd5704_8.jpg",
       "PackagePath": "staticwebassets\\Images\\Products\\700a0926-eb61-4a54-afbc-f2340cdd5704_8.jpg"
+    },
+    {
+      "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\8e0c1f4d-c3b7-4d83-b791-bf22b7175c3f_5.jpg",
+      "PackagePath": "staticwebassets\\Images\\Products\\8e0c1f4d-c3b7-4d83-b791-bf22b7175c3f_5.jpg"
     },
     {
       "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\987a3d16-c565-4e3e-90ef-f2b67b35f232_7.jpg",
@@ -51,6 +59,10 @@
     {
       "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\ee90051a-f165-4ec7-8fc2-fb3bdcd5c4ad_5.jpg",
       "PackagePath": "staticwebassets\\Images\\Products\\ee90051a-f165-4ec7-8fc2-fb3bdcd5c4ad_5.jpg"
+    },
+    {
+      "Id": "D:\\Ecommerce\\Ecommerce\\wwwroot\\Images\\Products\\fe8a6c3d-92fd-43ff-a428-db0b0a30a27f_product-09-a.jpg",
+      "PackagePath": "staticwebassets\\Images\\Products\\fe8a6c3d-92fd-43ff-a428-db0b0a30a27f_product-09-a.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Ecommerce.Microsoft.AspNetCore.StaticWebAssets.props",
