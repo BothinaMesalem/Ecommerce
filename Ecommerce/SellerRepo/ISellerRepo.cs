@@ -9,7 +9,7 @@ namespace Ecommerce.SellerRepo
 
         public Task Update(SellerDto sellerDto,int id);
 
-        public Task<List<User>> GetAll();
+        public Task<List<AllSellerDto>> GetAll();
 
     }
 }

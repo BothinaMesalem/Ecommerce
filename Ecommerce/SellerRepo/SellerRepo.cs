@@ -41,11 +41,19 @@ namespace Ecommerce.SellerRepo
 
             }
         }
-        public async Task<List<User>> GetAll()
+        public async Task<List<AllSellerDto>> GetAll()
         {
             var sellers= await ecdb.Users.Where(s=>s.Role==UserRole.Seller).ToListAsync();
-            return sellers;
-            
+            var sellerDto = sellers.Select(seller => new AllSellerDto
+            {
+                UserId = seller.UserId,
+                UserName = seller.UserName,
+                Email = seller.Email,
+
+            }
+                ).ToList();
+            return sellerDto;
+
         }
 
         public async Task Update(SellerDto sellerDto,int id)
