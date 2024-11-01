@@ -224,6 +224,28 @@ namespace Ecommerce.ProductRepo
             await  ecdb.SaveChangesAsync();
         }
 
+        public async Task<List<SellerNamewithAllProductDto>> GetAllwithSellerName()
+        {
+            var products = await ecdb.Products.Include(a => a.User).Include(a=>a.ProductProductSizes).ThenInclude(a=>a.ProductSize).ToListAsync();
+            var prodwithsellerName = products.Select(prod => new SellerNamewithAllProductDto
+            {
+                ProductId = prod.ProductId,
+                ProductName = prod.ProductName,
+                ProductDescription = prod.ProductDescription,
+                Price = prod.Price,
+                Stack_qty = prod.Stack_qty,
+                Image = prod.Image,
+                UserName = prod.User.UserName,
+                Size = prod.ProductProductSizes != null ?
+                prod.ProductProductSizes.Where(p => p.ProductSize != null).
+                Select(ps => ps.ProductSize.Size)
+                .ToList()
+                : new List<string>()
+            }).ToList();
+
+            return prodwithsellerName;
+        }
+
 
 
     }

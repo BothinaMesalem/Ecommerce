@@ -69,6 +69,12 @@ namespace Ecommerce.Controllers
             await ProductRepo.Editqty(productStackqtyDto,id);
             return Ok();
         }
+        [HttpGet("GetAllProductwithSellerName")]
+        public async Task<IActionResult> GetAllProductwithSellerName()
+        {
+            var AllProducts = await ProductRepo.GetAllwithSellerName();
+            return Ok(AllProducts);
+        }
 
 
 

@@ -18,6 +18,8 @@ namespace Ecommerce.ProductRepo
 
         public Task Editqty(ProductStackqtyDto productStackqtyDto,int id);
 
+        public Task<List<SellerNamewithAllProductDto>> GetAllwithSellerName();
+
 
 
     }
