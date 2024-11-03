@@ -57,6 +57,13 @@ namespace Ecommerce.Controllers
             await orderRepo.Delete(id);
             return Ok();
         }
+        [HttpPut("EditQuantity/{id}")]
+
+        public async Task<IActionResult> UpdateQuantity(orderquantityDto quantityDto,int id)
+        {
+            await orderRepo.UpdateQuantity(quantityDto,id);
+            return Ok();
+        }
 
 
     }

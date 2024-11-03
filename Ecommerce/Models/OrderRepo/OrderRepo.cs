@@ -40,16 +40,16 @@ namespace Ecommerce.Models.OrderRepo
 
             await ecdb.SaveChangesAsync();
         }
-        public async Task<List<AllOrderDto>> GetbyuserId(int id)
+        public async Task<List<AllOrderbyUserIdDto>> GetbyuserId(int id)
         {
-            var orders = await ecdb.Orders.Include(order => order.OrderDetails).Where(order => order.UserId == id).ToListAsync();
-            var Orderdtos = orders.Select(or => new AllOrderDto
+            var orders = await ecdb.Orders.Include(order => order.OrderDetails).ThenInclude(order=>order.Product).Where(order => order.UserId == id).ToListAsync();
+            var Orderdtos = orders.Select(or => new AllOrderbyUserIdDto
             {
                 OrderId = or.OrderId,
                 UserId = or.UserId,
                 Totalamount = or.Totalamount,
                 Order_date = or.Order_date,
-                OrderDetails = or.OrderDetails.Select(ord => new AllOrderDetailsDto
+                OrderDetail = or.OrderDetails.Select(ord => new  OrderDetailByUserIdDtocs
                 {
 
                     OrderDetailId = ord.OrderDetailId,
@@ -57,6 +57,9 @@ namespace Ecommerce.Models.OrderRepo
                     Quantity = ord.Quantity,
                     Size=ord.Size,
                     ProductId = ord.ProductId,
+                    ProductName=ord.Product.ProductName,
+                    Image=ord.Product.Image
+
 
                 }).ToList()
             }).ToList();
@@ -105,6 +108,27 @@ namespace Ecommerce.Models.OrderRepo
                 await ecdb.SaveChangesAsync();
             }
         }
+        public async Task UpdateQuantity(orderquantityDto orderqtyDto, int id)
+        {
+            var orderFound = await ecdb.Orders.Include(or => or.OrderDetails).FirstOrDefaultAsync(o => o.OrderId == id);
+            if (orderFound != null)
+            {
+                foreach (var orderDetailQty in orderqtyDto.OrderDetailqty)
+                {
+                    var orderDetail = orderFound.OrderDetails
+                        .FirstOrDefault(od => od.OrderDetailId == orderDetailQty.OrderDetailId);
+
+                    if (orderDetail != null)
+                    {
+                        if (orderDetailQty.Quantity >= 0) 
+                        {
+                            orderDetail.Quantity = orderDetailQty.Quantity;
+                        }
+                    }
+                }
+                await ecdb.SaveChangesAsync();
+            }
+        }
 
         public async Task Delete(int id)
         {
@@ -115,10 +139,9 @@ namespace Ecommerce.Models.OrderRepo
                 await ecdb.SaveChangesAsync();
 
             }
-          
-           
            
         }
+        
 
     }
 }

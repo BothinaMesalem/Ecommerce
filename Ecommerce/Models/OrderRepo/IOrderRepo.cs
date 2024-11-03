@@ -4,12 +4,13 @@
     {
         public Task  Add(OrderDto OrderDto);
 
-        public Task<List<AllOrderDto>> GetbyuserId(int id);
+        public Task<List<AllOrderbyUserIdDto>> GetbyuserId(int id);
 
         public Task<List<AllOrderDto>> GetAll();
 
         public Task Update(OrderDto OrderDto,int id);
 
         public Task Delete(int id);
+        public  Task UpdateQuantity(orderquantityDto orderqtyDto, int id);
     }
 }
