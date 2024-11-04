@@ -65,6 +65,13 @@ namespace Ecommerce.Controllers
             return Ok();
         }
 
+        [HttpGet("GetCountByUserId/{id}")]
+        public async Task<IActionResult> Getcount(int id)
+        {
+            var ordercount = await orderRepo.GetCount(id);
+            return Ok(ordercount);
+        }
+
 
     }
 }

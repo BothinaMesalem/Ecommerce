@@ -141,6 +141,12 @@ namespace Ecommerce.Models.OrderRepo
             }
            
         }
+        public async Task<int> GetCount(int id)
+        {
+          var ordercount= await ecdb.Orders.Where(o => o.UserId == id).CountAsync();
+            return ordercount;
+           
+        }
         
 
     }

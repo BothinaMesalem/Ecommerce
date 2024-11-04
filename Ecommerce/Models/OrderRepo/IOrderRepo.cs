@@ -12,5 +12,7 @@
 
         public Task Delete(int id);
         public  Task UpdateQuantity(orderquantityDto orderqtyDto, int id);
+
+        public  Task<int> GetCount(int id);
     }
 }
