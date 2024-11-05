@@ -20,6 +20,10 @@ namespace Ecommerce.ProductRepo
 
         public Task<List<SellerNamewithAllProductDto>> GetAllwithSellerName();
 
+        public  Task<IEnumerable<AllProductDto>> getthefourproduct();
+
+
+        public Task<IEnumerable<AllProductDto>> getthelastfourproduct();
 
 
     }

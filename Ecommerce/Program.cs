@@ -1,5 +1,6 @@
 
 using Ecommerce.AccountRepo;
+using Ecommerce.CheckoutRepo;
 using Ecommerce.CustomerRepo;
 using Ecommerce.Models;
 using Ecommerce.Models.OrderRepo;
@@ -34,6 +35,7 @@ namespace Ecommerce
             builder.Services.AddScoped<ICustomerRepo, Ecommerce.CustomerRepo.CustomerRepo>();
             builder.Services.AddScoped<IAccountRepo, Ecommerce.AccountRepo.AccountRepo>();
             builder.Services.AddScoped<IOrderDetailRepo, Ecommerce.OrderDetailsRepo.OrderDetailRepo>();
+            builder.Services.AddScoped<ICheckoutRepo,Ecommerce.CheckoutRepo.CheckoutRepo>();
 
             builder.Services.AddAuthentication(op => op.DefaultScheme = "myschema")
                 .AddJwtBearer("myschema", option =>

@@ -245,6 +245,60 @@ namespace Ecommerce.ProductRepo
 
             return prodwithsellerName;
         }
+        public async Task<IEnumerable<AllProductDto>> getthefourproduct()
+        {
+            var products = await ecdb.Products.Include(p => p.ProductProductSizes).ThenInclude(p => p.ProductSize)
+            .Take(4).ToListAsync();
+
+
+            var produtdto = products.Select(product => new AllProductDto
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                Price = product.Price,
+                Stack_qty = product.Stack_qty,
+                Image = product.Image,
+                Size = product.ProductProductSizes != null ?
+                product.ProductProductSizes.Where(p => p.ProductSize != null).
+                Select(ps => ps.ProductSize.Size)
+                .ToList()
+                : new List<string>()
+
+
+            }).ToList();
+
+            return produtdto;
+
+
+        }
+        public async Task<IEnumerable<AllProductDto>> getthelastfourproduct()
+        {
+            var products = await ecdb.Products.Include(p => p.ProductProductSizes).ThenInclude(p => p.ProductSize)
+           .Skip(4).Take(4).ToListAsync();
+
+
+            var produtdto = products.Select(product => new AllProductDto
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                Price = product.Price,
+                Stack_qty = product.Stack_qty,
+                Image = product.Image,
+                Size = product.ProductProductSizes != null ?
+                product.ProductProductSizes.Where(p => p.ProductSize != null).
+                Select(ps => ps.ProductSize.Size)
+                .ToList()
+                : new List<string>()
+
+
+            }).ToList();
+
+            return produtdto;
+
+
+        }
 
 
 

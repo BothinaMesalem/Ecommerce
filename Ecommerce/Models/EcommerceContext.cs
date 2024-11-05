@@ -13,9 +13,13 @@ namespace Ecommerce.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set;}
 
+        public DbSet<Checkout> CheckoutDetails { get; set; }
+
         public DbSet <ProductSize> ProductSize { get; set; }
 
         public DbSet <ProductProductSize> ProductProductSize { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // User to Products (Seller's Products)

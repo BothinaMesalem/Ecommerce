@@ -75,6 +75,18 @@ namespace Ecommerce.Controllers
             var AllProducts = await ProductRepo.GetAllwithSellerName();
             return Ok(AllProducts);
         }
+        [HttpGet("GetFourProducts")]
+        public async Task<IActionResult> GetFourProducts()
+        {
+            var fourProduct = await ProductRepo.getthefourproduct();
+            return Ok(fourProduct);
+        }
+        [HttpGet("GetLastFourProducts")]
+        public async Task<IActionResult> GetLastFourProducts()
+        {
+            var fourProduct = await ProductRepo.getthelastfourproduct();
+            return Ok(fourProduct);
+        }
 
 
 
