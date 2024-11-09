@@ -141,13 +141,47 @@ namespace Ecommerce.Models.OrderRepo
             }
            
         }
+        public async Task<List<AllOrderDto>> Getallordertoseller(int sellerId)
+        {
+            var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o=>o.Product).Where(o=>o.OrderDetails.Any(od=>od.Product.UserId==sellerId)).ToListAsync();
+            var orderDtos = Orders.Select(order => new AllOrderDto
+            {
+                OrderId = order.OrderId,
+                UserId = order.UserId,
+                Totalamount = order.Totalamount,
+                Order_date = order.Order_date,
+                OrderDetails = order.OrderDetails.Where(od=>od.Product.UserId==sellerId).Select(or => new AllOrderDetailsDto
+                {
+                    OrderDetailId = or.OrderDetailId,
+                    OrderPrice = or.OrderPrice,
+                    ProductId = or.ProductId,
+                    Quantity = or.Quantity,
+                    Size = or.Size,
+                }).ToList()
+            }).ToList();
+
+            return orderDtos;
+        }
+
         public async Task<int> GetCount(int id)
         {
           var ordercount= await ecdb.Orders.Where(o => o.UserId == id).CountAsync();
-            return ordercount;
-           
+            return ordercount; 
         }
-        
+
+        public async Task<int> GetOrdersCount()
+        {
+            var orderscount = await ecdb.Orders.CountAsync();
+            return orderscount;
+        }
+        public async Task<int> GetordersCounttoseller(int sellerId)
+        {
+            var Ordersnumber = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o => o.Product).Where(o => o.OrderDetails.Any(od => od.Product.UserId == sellerId)).CountAsync();
+            return Ordersnumber;
+        }
+
+
+
 
     }
 }

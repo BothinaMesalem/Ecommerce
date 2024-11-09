@@ -299,7 +299,16 @@ namespace Ecommerce.ProductRepo
 
 
         }
-
+        public async Task<int> GetCountProducts()
+        {
+            var number = await ecdb.Products.CountAsync();
+            return number;
+        }
+        public async Task<int> GetCountProductsthataddedbyseller(int id)
+        {
+            var number = await ecdb.Products.Where(p=>p.UserId==id).CountAsync();
+            return number;
+        }
 
 
     }

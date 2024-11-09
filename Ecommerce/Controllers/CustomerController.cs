@@ -28,11 +28,19 @@ namespace Ecommerce.Controllers
             return Ok();
         }
         [HttpGet("GetAllCustomer")]
-        //[Authorize]
+     
         public async Task<IActionResult> GetAll()
         {
            var cutomers= await customerRepo.GetAll();
             return Ok(cutomers);
         }
+
+        [HttpGet("GetCustomerdatabyId/{id}")]
+        public async Task<IActionResult> GetCustomerdatabyId(int id)
+        {
+            var cutomer = await customerRepo.GetCustomerById(id);
+            return Ok(cutomer);
+        }
+
     }
 }

@@ -87,6 +87,20 @@ namespace Ecommerce.Controllers
             var fourProduct = await ProductRepo.getthelastfourproduct();
             return Ok(fourProduct);
         }
+        [HttpGet("GetCountOfProducts")]
+        public async Task<IActionResult> GetCountOfProductst()
+        {
+            var number = await ProductRepo.GetCountProducts();
+            return Ok(number);
+        }
+
+        [HttpGet("GetCountOfProductsbysellerid/{id}")]
+        public async Task<IActionResult> GetCountOfProductsbysellerid(int id)
+        {
+            var number = await ProductRepo.GetCountProductsthataddedbyseller(id);
+            return Ok(number);
+        }
+
 
 
 

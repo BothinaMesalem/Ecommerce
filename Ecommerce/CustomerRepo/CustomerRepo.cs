@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.CustomerRepo
 {
@@ -38,6 +39,17 @@ namespace Ecommerce.CustomerRepo
         {
             var customer = ecdb.Users.Where(c => c.Role == UserRole.Customer).ToList();
             return customer;
+        }
+        public async Task<CustomerDto> GetCustomerById(int id)
+        {
+            var customer =await ecdb.Users.Where(c => c.Role == UserRole.Customer).FirstOrDefaultAsync(c => c.UserId == id);
+            var customerData = new CustomerDto
+            {
+                UserName = customer.UserName,
+                Email = customer.Email,
+                Password = customer.Password,
+            };
+            return customerData;
         }
     }
 }

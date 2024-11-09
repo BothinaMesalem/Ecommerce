@@ -14,5 +14,11 @@
         public  Task UpdateQuantity(orderquantityDto orderqtyDto, int id);
 
         public  Task<int> GetCount(int id);
+
+        public Task<int> GetOrdersCount();
+
+        public Task<List<AllOrderDto>> Getallordertoseller(int sellerId);
+
+        public Task<int> GetordersCounttoseller(int sellerId);
     }
 }

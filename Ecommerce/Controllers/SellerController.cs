@@ -40,6 +40,14 @@ namespace Ecommerce.Controllers
             return Ok();
 
         }
+        [HttpGet("GetSellerbyId/{id}")]
+
+        public async Task<IActionResult> GetsellerbyId(int id)
+        {
+           var sellerdata= await sellerRepo.GetSellerbyId(id);
+            return Ok(sellerdata);
+
+        }
 
     }
 }

@@ -55,6 +55,21 @@ namespace Ecommerce.SellerRepo
             return sellerDto;
 
         }
+        public async Task<SellerDto> GetSellerbyId(int id)
+        {
+            var sellers = await ecdb.Users.Where(s => s.Role == UserRole.Seller).FirstOrDefaultAsync(s=>s.UserId==id);
+            var sellerDto = new SellerDto
+            {
+                
+                UserName = sellers.UserName,
+                Email = sellers.Email,
+                Password=sellers.Password
+
+            };
+                
+            return sellerDto;
+
+        }
 
         public async Task Update(SellerDto sellerDto,int id)
         {

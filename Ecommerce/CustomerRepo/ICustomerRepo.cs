@@ -9,5 +9,6 @@ namespace Ecommerce.CustomerRepo
         public Task Update(CustomerDto customerDto,int id);
 
         public Task<List<User>> GetAll();
+        public  Task<CustomerDto> GetCustomerById(int id);
     }
 }

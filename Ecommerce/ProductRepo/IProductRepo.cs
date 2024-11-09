@@ -25,6 +25,10 @@ namespace Ecommerce.ProductRepo
 
         public Task<IEnumerable<AllProductDto>> getthelastfourproduct();
 
+        public  Task<int> GetCountProducts();
+
+        public Task<int> GetCountProductsthataddedbyseller(int id);
+
 
     }
 }
