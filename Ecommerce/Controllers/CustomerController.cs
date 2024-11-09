@@ -22,7 +22,7 @@ namespace Ecommerce.Controllers
             return Ok();
         }
         [HttpPut("EditCustomerProfile/{id}")]
-        public async Task<IActionResult> EditUser(CustomerDto customerDto,int id)
+        public async Task<IActionResult> EditUser(UpdateCustomerDto customerDto,int id)
         {
             await customerRepo.Update(customerDto,id);
             return Ok();

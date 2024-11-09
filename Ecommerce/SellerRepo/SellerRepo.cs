@@ -55,15 +55,15 @@ namespace Ecommerce.SellerRepo
             return sellerDto;
 
         }
-        public async Task<SellerDto> GetSellerbyId(int id)
+        public async Task<AllSellerDto> GetSellerbyId(int id)
         {
             var sellers = await ecdb.Users.Where(s => s.Role == UserRole.Seller).FirstOrDefaultAsync(s=>s.UserId==id);
-            var sellerDto = new SellerDto
+            var sellerDto = new AllSellerDto
             {
-                
+                UserId=sellers.UserId,
                 UserName = sellers.UserName,
                 Email = sellers.Email,
-                Password=sellers.Password
+              
 
             };
                 
@@ -71,13 +71,12 @@ namespace Ecommerce.SellerRepo
 
         }
 
-        public async Task Update(SellerDto sellerDto,int id)
+        public async Task Update(UpdateSellerDto sellerDto,int id)
         {
             var seller = await ecdb.Users.Where(s => s.Role == UserRole.Seller).FirstOrDefaultAsync(s => s.UserId == id);
             if (seller != null)
             {
                 seller.UserName = sellerDto.UserName;
-                seller.Password= sellerDto.Password;
                 seller.Email=sellerDto.Email;
             }
             await ecdb.SaveChangesAsync();

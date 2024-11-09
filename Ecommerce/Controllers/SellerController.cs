@@ -34,7 +34,7 @@ namespace Ecommerce.Controllers
         }
 
         [HttpPut("EditSellerProfile/{id}")]
-        public async Task<IActionResult> Edit(SellerDto sellerDto,int id)
+        public async Task<IActionResult> Edit(UpdateSellerDto sellerDto,int id)
         {
             await sellerRepo.Update(sellerDto, id);
             return Ok();
