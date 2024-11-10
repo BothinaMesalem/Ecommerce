@@ -17,43 +17,34 @@ namespace Ecommerce.AccountRepo
         }
         public async Task<string> Login(AccountDto accountDto)
         {
-            var user= ecdb.Users.FirstOrDefault(a=>a.UserName==accountDto.UserName);
-            if (user != null && user.Password==accountDto.Password) 
+            var user = ecdb.Users.FirstOrDefault(a => a.UserName == accountDto.UserName);
+            if (user != null && user.Password == accountDto.Password)
             {
-                //return user;
-                #region claims
-                List<Claim> userdata = new List<Claim>();
-                userdata.Add(new Claim("name",accountDto.UserName));
-                #endregion
+                // Return token as before
+                List<Claim> userdata = new List<Claim>
+        {
+            new Claim("name", accountDto.UserName),
+            new Claim("role", user.Role.ToString())
+        };
 
-                #region secretkey
                 string s = "Welcome to my project Bothina Ahmed";
-                var key=new SymmetricSecurityKey(Encoding.ASCII.GetBytes(s));
-                #endregion
-
-                var sigcer= new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
+                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(s));
+                var sigcer = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(
-                
-                    claims:userdata,
-                    expires:DateTime.Now.AddDays(5),
-                    signingCredentials:sigcer
-                   
-
+                    claims: userdata,
+                    expires: DateTime.Now.AddDays(5),
+                    signingCredentials: sigcer
                 );
 
-                #region convert token to string
                 var stringtoken = new JwtSecurityTokenHandler().WriteToken(token);
-                #endregion
                 return stringtoken;
-
-                
             }
             else
             {
-                return null;
+                throw new UnauthorizedAccessException("Invalid username or password");
             }
-            
         }
+
     }
 }

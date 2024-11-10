@@ -37,19 +37,20 @@ namespace Ecommerce
             builder.Services.AddScoped<IOrderDetailRepo, Ecommerce.OrderDetailsRepo.OrderDetailRepo>();
             builder.Services.AddScoped<ICheckoutRepo,Ecommerce.CheckoutRepo.CheckoutRepo>();
 
-            builder.Services.AddAuthentication(op => op.DefaultScheme = "myschema")
-                .AddJwtBearer("myschema", option =>
-                {
-                string s = "Welcome to my project Bothina Ahmed";
-                var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(s));
-                    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-                    {
-                        IssuerSigningKey = key,
-                        ValidateIssuer = false,
-                        ValidateAudience = false
+            builder.Services.AddAuthentication("myschema")
+     .AddJwtBearer("myschema", option =>
+     {
+         string s = "Welcome to my project Bothina Ahmed"; // Same secret key for verification
+         var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(s));
+         option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+         {
+             ValidateIssuer = false,
+             ValidateAudience = false,
+             ValidateLifetime = true,
+             IssuerSigningKey = key // Ensure the same key is used here for verification
+         };
+     });
 
-                    };
-                });
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigins",

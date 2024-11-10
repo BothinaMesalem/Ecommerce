@@ -13,14 +13,26 @@ namespace Ecommerce.Controllers
             accountRepo = _accountRepo; 
         }
         [HttpPost("Login")]
-
         public async Task<IActionResult> Login(AccountDto accountDto)
         {
-           var token = await accountRepo.Login(accountDto);
-            if(token == null) {
-                return Unauthorized("Invaild username or Password");
+            try
+            {
+                var token = await accountRepo.Login(accountDto);
+                if (token == null)
+                {
+                    return Unauthorized(new { message = "Invalid username or password" });
+                }
+                return Ok(new { token });
             }
-            return Ok(token);
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Internal server error: " + ex.Message });
+            }
         }
+
     }
 }

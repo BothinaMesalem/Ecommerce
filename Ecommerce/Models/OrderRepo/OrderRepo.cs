@@ -174,6 +174,7 @@ namespace Ecommerce.Models.OrderRepo
             var orderscount = await ecdb.Orders.CountAsync();
             return orderscount;
         }
+      
         public async Task<int> GetordersCounttoseller(int sellerId)
         {
             var Ordersnumber = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o => o.Product).Where(o => o.OrderDetails.Any(od => od.Product.UserId == sellerId)).CountAsync();
