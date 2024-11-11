@@ -22,10 +22,11 @@ namespace Ecommerce.AccountRepo
             {
                 // Return token as before
                 List<Claim> userdata = new List<Claim>
-        {
-            new Claim("name", accountDto.UserName),
-            new Claim("role", user.Role.ToString())
-        };
+                {
+                    new Claim("name", accountDto.UserName),
+                    new Claim("role", user.Role.ToString()),
+                    new Claim("id",user.UserId.ToString())
+                };
 
                 string s = "Welcome to my project Bothina Ahmed";
                 var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(s));
