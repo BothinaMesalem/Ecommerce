@@ -10,6 +10,7 @@
         public int UserId { get; set; }
 
         public DateTime Order_date { get; set; }
+        public OrderStatus Status { get; set; }
         public List<AllOrderDetailsDto> OrderDetails { get; set; }
     }
 }

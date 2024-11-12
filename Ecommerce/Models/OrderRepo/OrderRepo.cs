@@ -68,23 +68,45 @@ namespace Ecommerce.Models.OrderRepo
         }
         public async Task<List<AllOrderDto>> GetAll()
         {
+            var today = DateTime.Today;
             var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails).ToListAsync();
-            var orderDtos = Orders.Select(order => new AllOrderDto
+            var orderDtos = Orders.Select(order =>
             {
-                OrderId = order.OrderId,
-                UserId = order.UserId,
-                Totalamount = order.Totalamount,
-                Order_date = order.Order_date,
-                OrderDetails = order.OrderDetails.Select(or => new AllOrderDetailsDto { 
-                    OrderDetailId = or.OrderDetailId,
-                    OrderPrice = or.OrderPrice,
-                    ProductId = or.ProductId,
-                    Quantity = or.Quantity,
-                    Size = or.Size,
-                }).ToList()
-            }).ToList();
+                var diffindays = (today - order.Order_date).Days;
+                if (diffindays >= 3)
+                {
+                    order.Status = OrderStatus.Delivered;
+                }
+                else if (diffindays >= 2)
+                {
+                    order.Status = OrderStatus.Shipped;
+                }
+                else if(diffindays ==0)
+                {
+                    order.Status = OrderStatus.Pending;
+                }
 
-            return orderDtos;
+                return new AllOrderDto
+                {
+
+                    OrderId = order.OrderId,
+                    UserId = order.UserId,
+                    Totalamount = order.Totalamount,
+                    Order_date = order.Order_date,
+                    Status=order.Status,
+                    OrderDetails = order.OrderDetails.Select(or => new AllOrderDetailsDto
+                    {
+                        OrderDetailId = or.OrderDetailId,
+                        OrderPrice = or.OrderPrice,
+                        ProductId = or.ProductId,
+                        Quantity = or.Quantity,
+                        Size = or.Size,
+
+                    }).ToList()
+                };
+                }).ToList();
+
+            return orderDtos; 
         }
         public async Task Update(OrderDto OrderDto, int id)
         {
@@ -143,14 +165,31 @@ namespace Ecommerce.Models.OrderRepo
         }
         public async Task<List<AllOrderDto>> Getallordertoseller(int sellerId)
         {
+            var today = DateTime.Today;
             var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o=>o.Product).Where(o=>o.OrderDetails.Any(od=>od.Product.UserId==sellerId)).ToListAsync();
-            var orderDtos = Orders.Select(order => new AllOrderDto
+            var orderDtos = Orders.Select(order => {
+                var diffindays = (today - order.Order_date).Days;
+                if (diffindays >= 3)
+                {
+                    order.Status = OrderStatus.Delivered;
+                }
+                else if( diffindays >= 2)
+                {
+                    order.Status = OrderStatus.Shipped;
+                }
+                else if (diffindays == 0)
+                {
+                    order.Status = OrderStatus.Pending;
+                }
+            
+            return new AllOrderDto
             {
                 OrderId = order.OrderId,
                 UserId = order.UserId,
                 Totalamount = order.Totalamount,
                 Order_date = order.Order_date,
-                OrderDetails = order.OrderDetails.Where(od=>od.Product.UserId==sellerId).Select(or => new AllOrderDetailsDto
+                Status=order.Status,
+                OrderDetails = order.OrderDetails.Where(od => od.Product.UserId == sellerId).Select(or => new AllOrderDetailsDto
                 {
                     OrderDetailId = or.OrderDetailId,
                     OrderPrice = or.OrderPrice,
@@ -158,6 +197,7 @@ namespace Ecommerce.Models.OrderRepo
                     Quantity = or.Quantity,
                     Size = or.Size,
                 }).ToList()
+            };
             }).ToList();
 
             return orderDtos;

@@ -14,7 +14,7 @@ namespace Ecommerce.Controllers
         }
 
       
-        [HttpPost("UserSignUP/{id}")]
+        [HttpPost("UserSignUP")]
 
         public async Task<IActionResult> CreateUser(CustomerDto customerDto)
         {

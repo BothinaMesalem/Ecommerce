@@ -20,7 +20,7 @@ namespace Ecommerce.AccountRepo
             var user = ecdb.Users.FirstOrDefault(a => a.UserName == accountDto.UserName);
             if (user != null && user.Password == accountDto.Password)
             {
-                // Return token as before
+               
                 List<Claim> userdata = new List<Claim>
                 {
                     new Claim("name", accountDto.UserName),
