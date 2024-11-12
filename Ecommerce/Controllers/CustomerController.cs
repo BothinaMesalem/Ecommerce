@@ -42,5 +42,13 @@ namespace Ecommerce.Controllers
             return Ok(cutomer);
         }
 
+        [HttpDelete("DeleteUser/{id}")]
+
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            await customerRepo.Delete(id);
+            return Ok();
+        }
+
     }
 }

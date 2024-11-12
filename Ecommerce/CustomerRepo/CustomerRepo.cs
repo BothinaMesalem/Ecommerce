@@ -58,5 +58,20 @@ namespace Ecommerce.CustomerRepo
             };
             return customerData;
         }
+        public async Task Delete(int id)
+        {
+            var customer = await ecdb.Users.Where(c => c.Role == UserRole.Customer).FirstOrDefaultAsync(c => c.UserId == id);
+            var cutomerwithorder = await ecdb.Users.Include(u => u.Orders).FirstOrDefaultAsync(a => a.Orders.Any(od => od.UserId == id) );
+            if (customer == cutomerwithorder)
+            {
+                throw new Exception("Can't Delete ");
+
+            }
+            else
+            {
+                ecdb.Users.Remove(customer);
+                await ecdb.SaveChangesAsync();
+            }
+        }
     }
 }
