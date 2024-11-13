@@ -90,6 +90,12 @@ namespace Ecommerce.Controllers
             var ordersNumber =await orderRepo.GetordersCounttoseller(id);
             return Ok(ordersNumber);
         }
+        [HttpDelete("ASDelete/{id}")]
+        public async Task<IActionResult> ASDlete(int id)
+        {
+            await orderRepo.ASDelete(id);
+            return Ok();
+        }
 
     }
 }

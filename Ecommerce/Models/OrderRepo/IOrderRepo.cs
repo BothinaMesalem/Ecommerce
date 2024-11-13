@@ -20,5 +20,7 @@
         public Task<List<AllOrderDto>> Getallordertoseller(int sellerId);
 
         public Task<int> GetordersCounttoseller(int sellerId);
+
+        public  Task ASDelete(int id);
     }
 }

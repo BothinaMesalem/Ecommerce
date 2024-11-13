@@ -163,6 +163,21 @@ namespace Ecommerce.Models.OrderRepo
             }
            
         }
+        public async Task  ASDelete(int id)
+        {
+            var order = await ecdb.Orders.FindAsync(id);
+            if (order != null && order.Status == OrderStatus.Delivered)
+            {
+                ecdb.Orders.Remove(order);
+                await ecdb.SaveChangesAsync();
+
+            }
+            else
+            {
+                throw new Exception("Can't Delte ");
+            }
+
+        }
         public async Task<List<AllOrderDto>> Getallordertoseller(int sellerId)
         {
             var today = DateTime.Today;
