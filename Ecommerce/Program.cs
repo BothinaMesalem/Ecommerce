@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Stripe;
+using Ecommerce.PaymentRepo;
 
 namespace Ecommerce
 {
@@ -36,6 +38,7 @@ namespace Ecommerce
             builder.Services.AddScoped<IAccountRepo, Ecommerce.AccountRepo.AccountRepo>();
             builder.Services.AddScoped<IOrderDetailRepo, Ecommerce.OrderDetailsRepo.OrderDetailRepo>();
             builder.Services.AddScoped<ICheckoutRepo,Ecommerce.CheckoutRepo.CheckoutRepo>();
+            builder.Services.AddScoped<IPaymentRepo, Ecommerce.PaymentRepo.PaymentRepo>();
 
             builder.Services.AddAuthentication("myschema")
      .AddJwtBearer("myschema", option =>
@@ -62,6 +65,8 @@ namespace Ecommerce
                     });
             });
 
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 
             var app = builder.Build();

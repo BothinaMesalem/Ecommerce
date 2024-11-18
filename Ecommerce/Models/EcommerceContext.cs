@@ -19,6 +19,8 @@ namespace Ecommerce.Models
 
         public DbSet <ProductProductSize> ProductProductSize { get; set; }
 
+        public DbSet<Payment> payment { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
