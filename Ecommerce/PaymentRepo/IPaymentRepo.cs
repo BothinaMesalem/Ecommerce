@@ -8,5 +8,7 @@ namespace Ecommerce.PaymentRepo
     public interface IPaymentRepo
     {
         public Session CreateCheckoutSession(Payment payment, string successUrl, string cancelUrl);
+
+        public  Task Add(PaymentDto paymentDto);
     }
 }

@@ -18,21 +18,17 @@ namespace Ecommerce.Controllers
         }
 
         [HttpPost("create-checkout-session")]
-        public IActionResult CreateCheckoutSession([FromBody] PaymentDto paymentDto)
+        public async Task<IActionResult> CreateCheckoutSession([FromBody] PaymentDto paymentDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            // Check if the user exists
-            var userExists = _context.Users.Any(u => u.UserId == paymentDto.UserId);
-            if (!userExists)
-            {
-                return BadRequest(new { message = "Invalid UserId. User does not exist." });
-            }
+          
+            await _paymentRepo.Add(paymentDto);
 
-            // Map DTO to Entity
+           
             var payment = new Payment
             {
                 Amount = paymentDto.Amount,
@@ -40,11 +36,6 @@ namespace Ecommerce.Controllers
                 PaymentDate = DateTime.UtcNow
             };
 
-            // Save payment details in the database
-            _context.payment.Add(payment);
-            _context.SaveChanges();
-
-            // Create Stripe checkout session
             var session = _paymentRepo.CreateCheckoutSession(
                 payment,
                 "http://localhost:4200/success", // Success URL
@@ -53,6 +44,5 @@ namespace Ecommerce.Controllers
 
             return Ok(new { sessionId = session.Id });
         }
-
     }
 }
