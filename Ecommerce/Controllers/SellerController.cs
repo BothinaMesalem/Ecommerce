@@ -48,6 +48,12 @@ namespace Ecommerce.Controllers
             return Ok(sellerdata);
 
         }
+        [HttpGet("GetCountofSellers")]
+        public async Task<IActionResult> GetCountofSeller()
+        {
+            var SellerCount = await sellerRepo.GetCountSeller();
+            return Ok(SellerCount);
+        }
 
     }
 }

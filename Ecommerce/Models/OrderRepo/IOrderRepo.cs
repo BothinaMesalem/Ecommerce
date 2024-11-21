@@ -22,5 +22,19 @@
         public Task<int> GetordersCounttoseller(int sellerId);
 
         public  Task ASDelete(int id);
+
+        public  Task<int> GetCountOrderShipped();
+
+        public  Task<int> GetCountOrderDelivered();
+
+        public Task<int> GetCountOrderPending();
+
+        public Task<int> GetCountOrderShippedbySeller(int sellerId);
+
+        public Task<int> GetCountOrderDeliveredySeller(int sellerId);
+
+        public Task<int> GetCountOrderPendingySeller(int sellerId);
+        
+
     }
 }

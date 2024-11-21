@@ -71,6 +71,12 @@ namespace Ecommerce.Controllers
             var ordercount = await orderRepo.GetCount(id);
             return Ok(ordercount);
         }
+        [HttpGet("GetCounttozeroByUserId/{id}")]
+        public async Task<IActionResult> GetcountZero(int id)
+        {
+            var ordercount = await orderRepo.GetCount(id);
+            return Ok(0);
+        }
         [HttpGet("GetCountofOrders")]
         public async Task<IActionResult> GetCountofOrders()
         {
@@ -96,6 +102,45 @@ namespace Ecommerce.Controllers
             await orderRepo.ASDelete(id);
             return Ok();
         }
+        [HttpGet("GetCountOrderShipped")]
+        public async Task<IActionResult> GetCountOrdershipped()
+        {
+            var ordersCount = await orderRepo.GetCountOrderShipped();
+            return Ok(ordersCount);
+        }
+
+        [HttpGet("GetCountOrderDelivered")]
+        public async Task<IActionResult> GetCountOrderdelivered()
+        {
+            var ordersCount = await orderRepo.GetCountOrderDelivered();
+            return Ok(ordersCount);
+        }
+        [HttpGet("GetCountOrderPending")]
+        public async Task<IActionResult> GetCountOrderpending()
+        {
+            var ordersCount = await orderRepo.GetCountOrderPending();
+            return Ok(ordersCount);
+        }
+        [HttpGet("GetCountOrderShippedbySeller/{id}")]
+        public async Task<IActionResult> GetCountOrdershippedbySeller(int id)
+        {
+            var ordersCount = await orderRepo.GetCountOrderShippedbySeller(id);
+            return Ok(ordersCount);
+        }
+
+        [HttpGet("GetCountOrderDeliveredbySeller/{id}")]
+        public async Task<IActionResult> GetCountOrderdeliveredbySeller(int id)
+        {
+            var ordersCount = await orderRepo.GetCountOrderDeliveredySeller(id);
+            return Ok(ordersCount);
+        }
+        [HttpGet("GetCountOrderPendingbySeller/{id}")]
+        public async Task<IActionResult> GetCountOrderpendingbySeller(int id)
+        {
+            var ordersCount = await orderRepo.GetCountOrderPendingySeller(id);
+            return Ok(ordersCount);
+        }
+
 
     }
 }

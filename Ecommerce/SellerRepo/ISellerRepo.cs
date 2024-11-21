@@ -12,6 +12,14 @@ namespace Ecommerce.SellerRepo
         public Task<List<AllSellerDto>> GetAll();
         public Task<AllSellerDto> GetSellerbyId(int id);
 
+        public Task<int> GetCountSeller();
+
+        public  Task UpdateAdmin(UpdateSellerDto sellerDto, int id);
+
+        public Task<AllSellerDto> GetAdminbyId(int id);
+
+
+
 
     }
 }

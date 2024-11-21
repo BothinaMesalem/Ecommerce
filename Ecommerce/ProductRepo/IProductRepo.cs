@@ -29,6 +29,10 @@ namespace Ecommerce.ProductRepo
 
         public Task<int> GetCountProductsthataddedbyseller(int id);
 
+        public Task<int> GetCountProductsthatinstockbyseller(int id);
+
+        public Task<int> GetCountProductsthatoutstockbyseller(int id);
+       
 
     }
 }

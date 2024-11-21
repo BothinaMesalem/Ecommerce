@@ -70,6 +70,22 @@ namespace Ecommerce.SellerRepo
             return sellerDto;
 
         }
+        public async Task<AllSellerDto> GetAdminbyId(int id)
+        {
+            var sellers = await ecdb.Users.Where(s => s.Role == UserRole.Admin).FirstOrDefaultAsync(s => s.UserId == id);
+            var admindto = new AllSellerDto
+            {
+                UserId = sellers.UserId,
+                UserName = sellers.UserName,
+                Email = sellers.Email,
+                
+
+            };
+
+            return admindto;
+;
+
+        }
 
         public async Task Update(UpdateSellerDto sellerDto,int id)
         {
@@ -80,6 +96,21 @@ namespace Ecommerce.SellerRepo
                 seller.Email=sellerDto.Email;
             }
             await ecdb.SaveChangesAsync();
+        }
+        public async Task UpdateAdmin(UpdateSellerDto sellerDto, int id)
+        {
+            var seller = await ecdb.Users.Where(s => s.Role == UserRole.Admin).FirstOrDefaultAsync(s => s.UserId == id);
+            if (seller != null)
+            {
+                seller.UserName = sellerDto.UserName;
+                seller.Email = sellerDto.Email;
+            }
+            await ecdb.SaveChangesAsync();
+        }
+        public async Task<int> GetCountSeller()
+        {
+            var number = await ecdb.Users.Where(s=>s.Role==UserRole.Seller).CountAsync();
+            return number;
         }
     }
 }
