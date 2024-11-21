@@ -235,6 +235,38 @@ namespace Ecommerce.Models.OrderRepo
             var Ordersnumber = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o => o.Product).Where(o => o.OrderDetails.Any(od => od.Product.UserId == sellerId)).CountAsync();
             return Ordersnumber;
         }
+        public async Task<int> GetCountOrderShipped()
+        {
+            var number = await ecdb.Orders.Where(o=>o.Status==OrderStatus.Shipped).CountAsync();
+            return number;
+        }
+        public async Task<int> GetCountOrderDelivered()
+        {
+            var number = await ecdb.Orders.Where(o => o.Status == OrderStatus.Delivered).CountAsync();
+            return number;
+        }
+        public async Task<int> GetCountOrderPending()
+        {
+            var number = await ecdb.Orders.Where(o => o.Status == OrderStatus.Pending).CountAsync();
+            return number;
+        }
+
+        public async Task<int> GetCountOrderShippedbySeller(int sellerId)
+        {
+            var number = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o => o.Product).Where(o => o.Status == OrderStatus.Shipped && o.OrderDetails.Any(od => od.Product.UserId == sellerId)).CountAsync();
+            return number;
+        }
+        public async Task<int> GetCountOrderDeliveredySeller(int sellerId)
+        {
+            var number = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o => o.Product).Where(o => o.Status == OrderStatus.Delivered && o.OrderDetails.Any(od => od.Product.UserId == sellerId)).CountAsync();
+            return number;
+        }
+        public async Task<int> GetCountOrderPendingySeller(int sellerId)
+        {
+            var number = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o => o.Product).Where(o => o.Status == OrderStatus.Pending && o.OrderDetails.Any(od => od.Product.UserId == sellerId)).CountAsync();
+            return number;
+        }
+
 
 
 

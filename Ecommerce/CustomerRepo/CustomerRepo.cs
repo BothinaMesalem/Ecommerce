@@ -73,5 +73,11 @@ namespace Ecommerce.CustomerRepo
                 await ecdb.SaveChangesAsync();
             }
         }
+
+        public async Task<int> GetCountCustomer()
+        {
+            var number = await ecdb.Users.Where(s => s.Role == UserRole.Customer).CountAsync();
+            return number;
+        }
     }
 }

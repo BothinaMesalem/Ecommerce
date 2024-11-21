@@ -100,6 +100,21 @@ namespace Ecommerce.Controllers
             var number = await ProductRepo.GetCountProductsthataddedbyseller(id);
             return Ok(number);
         }
+        [HttpGet("GetCountProductsthatinstockbyseller/{id}")]
+        public async Task<IActionResult> GetCountProductsthatinstockbySeller(int id)
+        {
+            var number = await ProductRepo.GetCountProductsthatinstockbyseller(id);
+            return Ok(number);
+        }
+        [HttpGet("GetCountProductsthatoutstockbyseller/{id}")]
+        public async Task<IActionResult> GetCountProductsthatoutstockbySeller(int id)
+        {
+            var number = await ProductRepo.GetCountProductsthatoutstockbyseller(id);
+            return Ok(number);
+        }
+
+
+
 
 
 

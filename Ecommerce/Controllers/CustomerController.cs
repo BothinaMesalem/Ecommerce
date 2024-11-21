@@ -1,4 +1,5 @@
 ﻿using Ecommerce.CustomerRepo;
+using Ecommerce.SellerRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,6 +50,14 @@ namespace Ecommerce.Controllers
             await customerRepo.Delete(id);
             return Ok();
         }
+
+        [HttpGet("GetCountofCustomer")]
+        public async Task<IActionResult> GetCountofCustomer()
+        {
+            var CutomerCount = await customerRepo.GetCountCustomer();
+            return Ok(CutomerCount);
+        }
+
 
     }
 }

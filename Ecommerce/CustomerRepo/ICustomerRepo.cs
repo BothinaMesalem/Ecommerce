@@ -12,5 +12,7 @@ namespace Ecommerce.CustomerRepo
         public  Task<AllCustomerDto> GetCustomerById(int id);
 
         public Task Delete(int id);
+        public Task<int> GetCountCustomer();
+        
     }
 }

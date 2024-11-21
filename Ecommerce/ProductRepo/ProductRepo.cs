@@ -309,7 +309,16 @@ namespace Ecommerce.ProductRepo
             var number = await ecdb.Products.Where(p=>p.UserId==id).CountAsync();
             return number;
         }
-
+        public async Task<int> GetCountProductsthatinstockbyseller(int id)
+        {
+            var number = await ecdb.Products.Where(p => p.UserId == id && p.Stack_qty>0).CountAsync();
+            return number;
+        }
+        public async Task<int> GetCountProductsthatoutstockbyseller(int id)
+        {
+            var number = await ecdb.Products.Where(p => p.UserId == id && p.Stack_qty == 0).CountAsync();
+            return number;
+        }
 
     }
 }
