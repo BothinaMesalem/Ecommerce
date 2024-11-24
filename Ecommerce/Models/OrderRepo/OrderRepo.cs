@@ -42,7 +42,7 @@ namespace Ecommerce.Models.OrderRepo
         }
         public async Task<List<AllOrderbyUserIdDto>> GetbyuserId(int id)
         {
-            var orders = await ecdb.Orders.Include(order => order.OrderDetails).ThenInclude(order=>order.Product).Where(order => order.UserId == id).ToListAsync();
+            var orders = await ecdb.Orders.Include(order => order.OrderDetails).ThenInclude(order=>order.Product).Where(order => order.UserId == id && order.Status== OrderStatus.Pending).ToListAsync();
             var Orderdtos = orders.Select(or => new AllOrderbyUserIdDto
             {
                 OrderId = or.OrderId,
@@ -105,6 +105,7 @@ namespace Ecommerce.Models.OrderRepo
                     }).ToList()
                 };
                 }).ToList();
+            await ecdb.SaveChangesAsync();
 
             return orderDtos; 
         }
@@ -184,15 +185,11 @@ namespace Ecommerce.Models.OrderRepo
             var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o=>o.Product).Where(o=>o.OrderDetails.Any(od=>od.Product.UserId==sellerId)).ToListAsync();
             var orderDtos = Orders.Select(order => {
                 var diffindays = (today - order.Order_date).Days;
-                if (diffindays >= 3)
+                if (order.Status==OrderStatus.Shipped && diffindays >= 3)
                 {
                     order.Status = OrderStatus.Delivered;
                 }
-                else if( diffindays >= 2)
-                {
-                    order.Status = OrderStatus.Shipped;
-                }
-                else if (diffindays == 0)
+                else 
                 {
                     order.Status = OrderStatus.Pending;
                 }
@@ -218,9 +215,23 @@ namespace Ecommerce.Models.OrderRepo
             return orderDtos;
         }
 
+        public async Task UpdateStatus(int Id)
+        {
+            var pendingOrders = await ecdb.Orders
+                                 .Where(o => o.UserId == Id && o.Status == OrderStatus.Pending)
+                                 .ToListAsync();
+
+            foreach (var order in pendingOrders)
+            {
+                order.Status = OrderStatus.Shipped;
+            }
+
+            await ecdb.SaveChangesAsync();
+        }
+
         public async Task<int> GetCount(int id)
         {
-          var ordercount= await ecdb.Orders.Where(o => o.UserId == id).CountAsync();
+          var ordercount= await ecdb.Orders.Where(o => o.UserId == id && o.Status==OrderStatus.Pending).CountAsync();
             return ordercount; 
         }
 

@@ -34,7 +34,10 @@
         public Task<int> GetCountOrderDeliveredySeller(int sellerId);
 
         public Task<int> GetCountOrderPendingySeller(int sellerId);
-        
+
+        public  Task UpdateStatus(int Id);
+
+
 
     }
 }

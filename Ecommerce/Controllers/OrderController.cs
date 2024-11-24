@@ -64,6 +64,13 @@ namespace Ecommerce.Controllers
             await orderRepo.UpdateQuantity(quantityDto,id);
             return Ok();
         }
+        [HttpPut("EditStatus/{id}")]
+
+        public async Task<IActionResult> UpdateStatus(int id)
+        {
+            await orderRepo.UpdateStatus(id);
+            return Ok();
+        }
 
         [HttpGet("GetCountByUserId/{id}")]
         public async Task<IActionResult> Getcount(int id)
@@ -71,12 +78,7 @@ namespace Ecommerce.Controllers
             var ordercount = await orderRepo.GetCount(id);
             return Ok(ordercount);
         }
-        [HttpGet("GetCounttozeroByUserId/{id}")]
-        public async Task<IActionResult> GetcountZero(int id)
-        {
-            var ordercount = await orderRepo.GetCount(id);
-            return Ok(0);
-        }
+       
         [HttpGet("GetCountofOrders")]
         public async Task<IActionResult> GetCountofOrders()
         {

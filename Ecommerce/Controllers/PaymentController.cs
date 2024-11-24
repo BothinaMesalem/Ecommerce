@@ -38,7 +38,7 @@ namespace Ecommerce.Controllers
 
             var session = _paymentRepo.CreateCheckoutSession(
                 payment,
-                "http://localhost:4200/success", // Success URL
+                "http://localhost:4200/Home", // Success URL
                 "http://localhost:4200/cancel"   // Cancel URL
             );
 

@@ -20,12 +20,13 @@ namespace Ecommerce.AccountRepo
             var user = ecdb.Users.FirstOrDefault(a => a.Email == accountDto.Email);
             if (user != null && user.Password == accountDto.Password)
             {
-               
+
                 List<Claim> userdata = new List<Claim>
                 {
-                    new Claim("name", accountDto.Email),
+                    new Claim("email", accountDto.Email),
                     new Claim("role", user.Role.ToString()),
-                    new Claim("id",user.UserId.ToString())
+                    new Claim("id",user.UserId.ToString()),
+                    new Claim("name",user.UserName)
                 };
 
                 string s = "Welcome to my project Bothina Ahmed";
