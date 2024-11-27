@@ -70,7 +70,8 @@ namespace Ecommerce.Models.OrderRepo
         {
             var today = DateTime.Today;
             var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails).ToListAsync();
-            var orderDtos = Orders.Select(order =>
+
+            foreach (var order in Orders)
             {
                 var diffindays = (today - order.Order_date).Days;
                 if (diffindays >= 3)
@@ -81,34 +82,35 @@ namespace Ecommerce.Models.OrderRepo
                 {
                     order.Status = OrderStatus.Shipped;
                 }
-                else if(diffindays ==0)
+                else if (diffindays == 0)
                 {
                     order.Status = OrderStatus.Pending;
                 }
+            }
 
-                return new AllOrderDto
-                {
-
-                    OrderId = order.OrderId,
-                    UserId = order.UserId,
-                    Totalamount = order.Totalamount,
-                    Order_date = order.Order_date,
-                    Status=order.Status,
-                    OrderDetails = order.OrderDetails.Select(or => new AllOrderDetailsDto
-                    {
-                        OrderDetailId = or.OrderDetailId,
-                        OrderPrice = or.OrderPrice,
-                        ProductId = or.ProductId,
-                        Quantity = or.Quantity,
-                        Size = or.Size,
-
-                    }).ToList()
-                };
-                }).ToList();
+          
             await ecdb.SaveChangesAsync();
 
-            return orderDtos; 
+            var orderDtos = Orders.Select(order => new AllOrderDto
+            {
+                OrderId = order.OrderId,
+                UserId = order.UserId,
+                Totalamount = order.Totalamount,
+                Order_date = order.Order_date,
+                Status = order.Status,
+                OrderDetails = order.OrderDetails.Select(or => new AllOrderDetailsDto
+                {
+                    OrderDetailId = or.OrderDetailId,
+                    OrderPrice = or.OrderPrice,
+                    ProductId = or.ProductId,
+                    Quantity = or.Quantity,
+                    Size = or.Size,
+                }).ToList()
+            }).ToList();
+
+            return orderDtos;
         }
+
         public async Task Update(OrderDto OrderDto, int id)
         {
             var orderFound = await ecdb.Orders.Include(or => or.OrderDetails).FirstOrDefaultAsync(o => o.OrderId == id);
@@ -182,25 +184,34 @@ namespace Ecommerce.Models.OrderRepo
         public async Task<List<AllOrderDto>> Getallordertoseller(int sellerId)
         {
             var today = DateTime.Today;
-            var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails).ThenInclude(o=>o.Product).Where(o=>o.OrderDetails.Any(od=>od.Product.UserId==sellerId)).ToListAsync();
-            var orderDtos = Orders.Select(order => {
+            var Orders = await ecdb.Orders.Include(orders => orders.OrderDetails)
+                                          .ThenInclude(o => o.Product)
+                                          .Where(o => o.OrderDetails.Any(od => od.Product.UserId == sellerId))
+                                          .ToListAsync();
+
+            foreach (var order in Orders)
+            {
                 var diffindays = (today - order.Order_date).Days;
-                if (order.Status==OrderStatus.Shipped && diffindays >= 3)
+                if (order.Status == OrderStatus.Shipped && diffindays >= 3)
                 {
                     order.Status = OrderStatus.Delivered;
                 }
-                else 
+                else
                 {
                     order.Status = OrderStatus.Pending;
                 }
-            
-            return new AllOrderDto
+            }
+
+           
+            await ecdb.SaveChangesAsync();
+
+            var orderDtos = Orders.Select(order => new AllOrderDto
             {
                 OrderId = order.OrderId,
                 UserId = order.UserId,
                 Totalamount = order.Totalamount,
                 Order_date = order.Order_date,
-                Status=order.Status,
+                Status = order.Status,
                 OrderDetails = order.OrderDetails.Where(od => od.Product.UserId == sellerId).Select(or => new AllOrderDetailsDto
                 {
                     OrderDetailId = or.OrderDetailId,
@@ -209,11 +220,11 @@ namespace Ecommerce.Models.OrderRepo
                     Quantity = or.Quantity,
                     Size = or.Size,
                 }).ToList()
-            };
             }).ToList();
 
             return orderDtos;
         }
+
 
         public async Task UpdateStatus(int Id)
         {
